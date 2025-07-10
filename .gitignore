@@ -11,7 +11,9 @@ __pycache__/
 *.log
 *.pot
 *.pyc
-db.sqlite3  # SQLite database
+
+# SQLite database
+db.sqlite3  
 
 # Local settings
 local_settings.py
