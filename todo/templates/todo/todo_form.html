@@ -2,14 +2,18 @@
 <html>
 <head>
     <title>Todo Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'todo/styles.css' %}">
 </head>
 <body>
-    <h1>{% if form.instance.pk %}Edit Todo{% else %}Add Todo{% endif %}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-    <a href="{% url 'todo_list' %}">Back to list</a>
+    <div class="container">
+        <h1>{% if form.instance.pk %}Edit Todo{% else %}Add Todo{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+        <a class="back-link" href="{% url 'todo_list' %}">Back to list</a>
+    </div>
 </body>
 </html> 
