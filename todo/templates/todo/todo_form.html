@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo Form</title>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Edit Todo{% else %}Add Todo{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'todo_list' %}">Back to list</a>
+</body>
+</html> 
