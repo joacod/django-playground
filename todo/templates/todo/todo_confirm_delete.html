@@ -9,11 +9,13 @@
     <div class="container">
         <h1>Delete Todo</h1>
         <p>Are you sure you want to delete "{{ todo.title }}"?</p>
-        <form method="post">
+        <form method="post" style="margin-bottom:0;">
             {% csrf_token %}
-            <button type="submit">Yes, delete</button>
+            <div class="action-row">
+                <button type="submit">Yes, delete</button>
+                <a class="cancel-link" href="{% url 'todo_list' %}">Cancel</a>
+            </div>
         </form>
-        <a class="cancel-link" href="{% url 'todo_list' %}">Cancel</a>
     </div>
 </body>
 </html> 
