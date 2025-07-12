@@ -57,6 +57,20 @@ python manage.py runserver
 
 **What it does**: Starts a local server on `http://127.0.0.1:8000`
 
+### Create a Superuser
+
+To access the Django admin interface, you need a superuser account. Run:
+
+```bash
+python manage.py createsuperuser
+```
+
+Follow the prompts to set up your admin credentials.
+
+Once the server is running, access the admin panel at:
+
+[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+
 ## ☕️ Did you like the project?
 
 You can colaborate with me giving a star ⭐️ to the project or
