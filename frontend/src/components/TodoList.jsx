@@ -74,17 +74,17 @@ function TodoList() {
   }
 
   return (
-    <div className="p-4 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-gray-100">Todo List</h1>
+    <div className="p-4 max-w-xl mx-auto bg-gray-900 text-white min-h-screen">
+      <h1 className="text-2xl font-bold mb-4 text-white">Todo List</h1>
       <div className="flex mb-4 gap-2">
         <input
-          className="border border-gray-700 bg-gray-800 text-gray-100 placeholder-gray-400 p-2 flex-1 focus:ring-2 focus:ring-blue-600"
+          className="border border-gray-700 bg-gray-800 text-white placeholder-gray-400 p-2 flex-1 focus:ring-2 focus:ring-blue-600"
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
           placeholder="Add a new todo title"
         />
         <input
-          className="border border-gray-700 bg-gray-800 text-gray-100 placeholder-gray-400 p-2 flex-1 focus:ring-2 focus:ring-blue-600"
+          className="border border-gray-700 bg-gray-800 text-white placeholder-gray-400 p-2 flex-1 focus:ring-2 focus:ring-blue-600"
           value={newDescription}
           onChange={(e) => setNewDescription(e.target.value)}
           placeholder="Add a description (optional)"
@@ -106,7 +106,7 @@ function TodoList() {
               {editId === todo.id ? (
                 <>
                   <input
-                    className="border border-gray-600 p-1 flex-1 mr-2 bg-gray-900 text-gray-100 focus:ring-2 focus:ring-blue-600"
+                    className="border border-gray-600 p-1 flex-1 mr-2 bg-gray-900 text-white focus:ring-2 focus:ring-blue-600"
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
                   />
@@ -138,20 +138,20 @@ function TodoList() {
                     className={`flex-1 cursor-pointer ${
                       todo.completed
                         ? 'line-through text-gray-500'
-                        : 'text-gray-100'
+                        : 'text-white'
                     }`}
                     onClick={() => handleToggle(todo)}
                   >
                     {todo.title}
                   </span>
                   <button
-                    className="ml-2 text-blue-400 hover:text-blue-200"
+                    className="ml-2 text-blue-400 hover:text-blue-300"
                     onClick={() => handleEdit(todo)}
                   >
                     Edit
                   </button>
                   <button
-                    className="ml-2 text-red-400 hover:text-red-200"
+                    className="ml-2 text-red-400 hover:text-red-300"
                     onClick={() => handleDelete(todo.id)}
                   >
                     Delete
@@ -162,7 +162,7 @@ function TodoList() {
             <div className="flex flex-col text-sm text-gray-400 ml-2">
               {editId === todo.id ? (
                 <textarea
-                  className="border border-gray-600 p-1 mt-1 bg-gray-900 text-gray-100 focus:ring-2 focus:ring-blue-600"
+                  className="border border-gray-600 p-1 mt-1 bg-gray-900 text-white focus:ring-2 focus:ring-blue-600"
                   value={editDescription}
                   onChange={(e) => setEditDescription(e.target.value)}
                   rows={2}

@@ -1,14 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Django Playground</title>
-</head>
-<body>
-    <h1>Welcome to Django Playground</h1>
-    <ul>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  </head>
+  <body>
+    <h1>Django Playground</h1>
+    <section>
+      <h2>DRF Apps</h2>
+      <a href="http://localhost:5173/">DRF (Django REST framework) Apps</a>
+    </section>
+    <section>
+      <h2>Template Apps</h2>
+      <ul>
         <li><a href="/todo/">Todo App</a></li>
-        <li><a href="/tododrf/">TodoDRF App</a></li>
-    </ul>
-</body>
-</html> 
+      </ul>
+    </section>
+  </body>
+</html>
