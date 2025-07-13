@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'todo',
     'tododrf',
     'corsheaders',
+    'pizza',
 ]
 
 MIDDLEWARE = [
