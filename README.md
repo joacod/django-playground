@@ -1,6 +1,6 @@
 <div align="center">
 
-# Django Playground 
+# Django Playground
 
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/joacod/django-playground/blob/main/LICENSE)
 
@@ -47,7 +47,7 @@ pip install -r requirements.txt
 
 **What it does**: Installs project dependencies listed in `requirements.txt`
 
-## 💻 Development
+## 💻 Development Server
 
 Run the project locally.
 
@@ -67,9 +67,45 @@ python manage.py createsuperuser
 
 Follow the prompts to set up your admin credentials.
 
-Once the server is running, access the admin panel at:
+Once the server is running, access the admin panel at `http://127.0.0.1:8000/admin`
 
-[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+## 🖥️ Frontend (Vite + React)
+
+A separate frontend app is available in the `frontend` folder, built with Vite and React. This app is intended for use with the Django REST Framework (DRF) APIs.
+
+### Running the Frontend
+
+1. Open a new terminal and navigate to the `frontend` directory:
+
+```bash
+cd frontend
+```
+
+2. Install dependencies (only needed once):
+
+```bash
+pnpm install
+```
+
+3. Start the development server:
+
+```bash
+pnpm dev
+```
+
+The frontend will be available at [http://localhost:5173](http://localhost:5173) by default.
+
+## 📝 Choosing Your Development Approach
+
+- **Django Development Server**: Running `python manage.py runserver` will serve your Django app, including any pages rendered with Django templates (e.g., server-side HTML views).
+- **Frontend (React) App**: Running the frontend dev server allows you to build and test a modern React SPA that consumes your Django REST API.
+
+You can use either approach, or both at the same time:
+
+- Use Django templates for traditional server-rendered pages.
+- Use the React frontend for a modern SPA experience with DRF APIs.
+
+Both can be run in parallel for full flexibility during development.
 
 ## ☕️ Did you like the project?
 
