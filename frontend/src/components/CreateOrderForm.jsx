@@ -39,9 +39,9 @@ function CreateOrderForm({ pizzas }) {
       setPhone('')
       setItems([])
     } catch (err) {
-      setError(
-        err?.message || 'Failed to create order (check customer and pizza info)'
-      )
+      setError(err.message)
+      setSuccess(false)
+      setOrderInfo(null)
     } finally {
       setLoading(false)
     }
@@ -59,14 +59,24 @@ function CreateOrderForm({ pizzas }) {
             type="email"
             placeholder="Customer email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              setError(null)
+              setSuccess(false)
+              setOrderInfo(null)
+            }}
           />
           <input
             className="border border-gray-700 rounded px-2 py-1 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
             type="text"
             placeholder="Customer phone"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => {
+              setPhone(e.target.value)
+              setError(null)
+              setSuccess(false)
+              setOrderInfo(null)
+            }}
           />
         </div>
         <div className="flex gap-2 items-center flex-wrap">

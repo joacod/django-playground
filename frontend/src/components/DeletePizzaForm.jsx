@@ -13,12 +13,18 @@ function DeletePizzaForm({ pizzas, onDeletePizza }) {
       setError('Select a pizza to delete')
       return
     }
-    const ok = await onDeletePizza(selected)
-    if (ok) {
-      setSuccess(true)
-      setSelected('')
-    } else {
-      setError('Failed to delete pizza')
+    try {
+      const ok = await onDeletePizza(selected)
+      if (ok) {
+        setSuccess(true)
+        setSelected('')
+      } else {
+        setError('Failed to delete pizza')
+        setSuccess(false)
+      }
+    } catch (err) {
+      setError(err.message)
+      setSuccess(false)
     }
   }
 
@@ -29,14 +35,23 @@ function DeletePizzaForm({ pizzas, onDeletePizza }) {
         <select
           className="border border-gray-700 rounded px-2 py-1 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
           value={selected}
-          onChange={e => setSelected(e.target.value)}
+          onChange={(e) => {
+            setSelected(e.target.value)
+            setError(null)
+            setSuccess(false)
+          }}
         >
           <option value="">Select pizza</option>
-          {pizzas.map(p => (
-            <option key={p.id} value={p.name}>{p.name}</option>
+          {pizzas.map((p) => (
+            <option key={p.id} value={p.name}>
+              {p.name}
+            </option>
           ))}
         </select>
-        <button className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white transition-colors" type="submit">
+        <button
+          className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white transition-colors"
+          type="submit"
+        >
           Delete
         </button>
       </form>
@@ -46,4 +61,4 @@ function DeletePizzaForm({ pizzas, onDeletePizza }) {
   )
 }
 
-export default DeletePizzaForm 
+export default DeletePizzaForm

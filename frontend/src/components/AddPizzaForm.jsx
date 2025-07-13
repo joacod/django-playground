@@ -13,12 +13,18 @@ function AddPizzaForm({ onAddPizza }) {
       setError('Pizza name is required')
       return
     }
-    const ok = await onAddPizza(name.trim())
-    if (ok) {
-      setSuccess(true)
-      setName('')
-    } else {
-      setError('Pizza already exists or failed to add')
+    try {
+      const ok = await onAddPizza(name.trim())
+      if (ok) {
+        setSuccess(true)
+        setName('')
+      } else {
+        setError('Pizza already exists or failed to add')
+        setSuccess(false)
+      }
+    } catch (err) {
+      setError(err.message)
+      setSuccess(false)
     }
   }
 
@@ -31,9 +37,16 @@ function AddPizzaForm({ onAddPizza }) {
           type="text"
           placeholder="Pizza name"
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value)
+            setError(null)
+            setSuccess(false)
+          }}
         />
-        <button className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-white transition-colors" type="submit">
+        <button
+          className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-white transition-colors"
+          type="submit"
+        >
           Add
         </button>
       </form>
@@ -43,4 +56,4 @@ function AddPizzaForm({ onAddPizza }) {
   )
 }
 
-export default AddPizzaForm 
+export default AddPizzaForm

@@ -3,9 +3,22 @@ const REPORTS_URL = 'http://localhost:8000/api/reports/'
 const CUSTOMERS_URL = 'http://localhost:8000/api/customers/'
 const ORDERS_URL = 'http://localhost:8000/api/orders/'
 
+async function handleResponse(response) {
+  const data = await response.json().catch(() => ({}))
+  if (!response.ok) {
+    // Try to extract error message from backend
+    const errorMsg =
+      typeof data === 'object' && data !== null
+        ? Object.values(data).flat().join(' ') || response.statusText
+        : response.statusText
+    throw new Error(errorMsg)
+  }
+  return data
+}
+
 export async function getPizzas() {
   const response = await fetch(API_URL)
-  return response.json()
+  return handleResponse(response)
 }
 
 export async function addPizza(pizza) {
@@ -14,25 +27,30 @@ export async function addPizza(pizza) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(pizza),
   })
-  return response.json()
+  return handleResponse(response)
 }
 
 export async function deletePizza(name) {
-  await fetch(`${API_URL}${encodeURIComponent(name)}/`, { method: 'DELETE' })
+  const response = await fetch(`${API_URL}${encodeURIComponent(name)}/`, {
+    method: 'DELETE',
+  })
+  if (!response.ok && response.status !== 204) {
+    throw new Error('Failed to delete pizza')
+  }
 }
 
 export async function getMostSoldPizza(month, year) {
   const response = await fetch(
     `${REPORTS_URL}most-sold-pizza/?month=${month}&year=${year}`
   )
-  return response.json()
+  return handleResponse(response)
 }
 
 export async function getCustomerOfTheYear(year) {
   const response = await fetch(
     `${REPORTS_URL}customer-of-the-year/?year=${year}`
   )
-  return response.json()
+  return handleResponse(response)
 }
 
 export async function addCustomer(customer) {
@@ -41,7 +59,7 @@ export async function addCustomer(customer) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(customer),
   })
-  return response.json()
+  return handleResponse(response)
 }
 
 export async function createOrder(order) {
@@ -50,5 +68,5 @@ export async function createOrder(order) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(order),
   })
-  return response.json()
+  return handleResponse(response)
 }

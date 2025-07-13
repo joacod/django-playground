@@ -24,7 +24,8 @@ function AddCustomerForm() {
       setEmail('')
       setPhone('')
     } catch (err) {
-      setError(err?.message || 'Failed to add customer (duplicate or invalid)')
+      setError(err.message)
+      setSuccess(false)
     } finally {
       setLoading(false)
     }
@@ -42,14 +43,22 @@ function AddCustomerForm() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value)
+            setError(null)
+            setSuccess(false)
+          }}
         />
         <input
           className="border border-gray-700 rounded px-2 py-1 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           type="text"
           placeholder="Phone"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => {
+            setPhone(e.target.value)
+            setError(null)
+            setSuccess(false)
+          }}
         />
         <button
           className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white transition-colors disabled:opacity-50"
