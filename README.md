@@ -107,6 +107,16 @@ You can use either approach, or both at the same time:
 
 Both can be run in parallel for full flexibility during development.
 
+## 🧪 Testing
+
+To run the backend tests (including API and business logic):
+
+```bash
+python manage.py test
+```
+
+This will discover and run all tests in your Django project.
+
 ## ☕️ Did you like the project?
 
 You can colaborate with me giving a star ⭐️ to the project or

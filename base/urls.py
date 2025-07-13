@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('todo/', include('todo.urls')),
     path('tododrf/', include('tododrf.urls')),
+    path('api/', include('pizza.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]
