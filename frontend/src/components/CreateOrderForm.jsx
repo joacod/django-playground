@@ -9,6 +9,8 @@ function CreateOrderForm({ pizzas }) {
   const [items, setItems] = useState([])
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(false)
+  const [orderInfo, setOrderInfo] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const addItem = (e) => {
     e.preventDefault()
@@ -22,24 +24,30 @@ function CreateOrderForm({ pizzas }) {
     e.preventDefault()
     setError(null)
     setSuccess(false)
-    if (!email && !phone) {
-      setError('Email or phone is required')
-      return
-    }
-    if (items.length === 0) {
-      setError('Add at least one pizza to the order')
+    setOrderInfo(null)
+    setLoading(true)
+    if ((!email && !phone) || items.length === 0) {
+      setError('Fill customer info and add at least one pizza')
+      setLoading(false)
       return
     }
     try {
-      await createOrder({ email, phone, items })
+      const data = await createOrder({ email, phone, items })
       setSuccess(true)
+      setOrderInfo(data)
       setEmail('')
       setPhone('')
       setItems([])
-    } catch {
-      setError('Failed to create order (check customer and pizza info)')
+    } catch (err) {
+      setError(
+        err?.message || 'Failed to create order (check customer and pizza info)'
+      )
+    } finally {
+      setLoading(false)
     }
   }
+
+  const canSubmit = (!!email || !!phone) && items.length > 0 && !loading
 
   return (
     <div className="mb-6">
@@ -51,25 +59,27 @@ function CreateOrderForm({ pizzas }) {
             type="email"
             placeholder="Customer email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             className="border border-gray-700 rounded px-2 py-1 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
             type="text"
             placeholder="Customer phone"
             value={phone}
-            onChange={e => setPhone(e.target.value)}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </div>
         <div className="flex gap-2 items-center flex-wrap">
           <select
             className="border border-gray-700 rounded px-2 py-1 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
             value={selectedPizza}
-            onChange={e => setSelectedPizza(e.target.value)}
+            onChange={(e) => setSelectedPizza(e.target.value)}
           >
             <option value="">Select pizza</option>
-            {pizzas.map(p => (
-              <option key={p.id} value={p.name}>{p.name}</option>
+            {pizzas.map((p) => (
+              <option key={p.id} value={p.name}>
+                {p.name}
+              </option>
             ))}
           </select>
           <input
@@ -77,9 +87,12 @@ function CreateOrderForm({ pizzas }) {
             type="number"
             min={1}
             value={quantity}
-            onChange={e => setQuantity(Number(e.target.value))}
+            onChange={(e) => setQuantity(Number(e.target.value))}
           />
-          <button className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white transition-colors" onClick={addItem}>
+          <button
+            className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white transition-colors"
+            onClick={addItem}
+          >
             Add to Order
           </button>
         </div>
@@ -87,19 +100,41 @@ function CreateOrderForm({ pizzas }) {
           {items.length > 0 && (
             <ul className="list-disc ml-6">
               {items.map((item, idx) => (
-                <li key={idx}>{item.quantity} x {item.pizza}</li>
+                <li key={idx}>
+                  {item.quantity} x {item.pizza}
+                </li>
               ))}
             </ul>
           )}
         </div>
-        <button className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-white transition-colors" type="submit">
-          Create Order
+        {items.length > 0 && (
+          <div className="mb-2 text-gray-300">
+            <b>Order summary:</b>{' '}
+            {items.map((i) => `${i.quantity} x ${i.pizza}`).join(', ')}
+          </div>
+        )}
+        <button
+          className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-white transition-colors disabled:opacity-50"
+          type="submit"
+          disabled={!canSubmit}
+        >
+          {loading ? 'Creating...' : 'Create Order'}
         </button>
       </form>
       {error && <div className="text-red-400 mt-1">{error}</div>}
-      {success && <div className="text-green-400 mt-1">Order created!</div>}
+      {success && orderInfo && (
+        <div className="text-green-400 mt-1">
+          Order created!
+          <br />
+          {orderInfo.created_at && (
+            <span>
+              Created at: {new Date(orderInfo.created_at).toLocaleString()}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   )
 }
 
-export default CreateOrderForm 
+export default CreateOrderForm
