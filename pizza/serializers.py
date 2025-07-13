@@ -21,8 +21,19 @@ class PizzaSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Pizza with this name already exists.')
         return value
 
+class PizzaNameField(serializers.Field):
+    def to_internal_value(self, value):
+        try:
+            pizza = Pizza.objects.get(name__iexact=value)
+            return pizza
+        except Pizza.DoesNotExist:
+            raise serializers.ValidationError(f'Pizza "{value}" does not exist.')
+    
+    def to_representation(self, value):
+        return value.name if value else None
+
 class OrderItemSerializer(serializers.ModelSerializer):
-    pizza = serializers.SlugRelatedField(slug_field='name', queryset=Pizza.objects.all())
+    pizza = PizzaNameField()
 
     class Meta:
         model = OrderItem
@@ -45,8 +56,49 @@ class OrderSerializer(serializers.ModelSerializer):
         phone = data.get('phone')
         if not email and not phone:
             raise serializers.ValidationError('At least one of email or phone must be provided.')
+        
+        # Check if items is present and not empty
+        items = data.get('items')
+        if not items:
+            raise serializers.ValidationError('Items field is required and cannot be empty.')
+        
         return data
 
     def create(self, validated_data):
-        # Custom order creation logic will be implemented in the view
-        raise NotImplementedError('Order creation logic is handled in the view.') 
+        email = validated_data.pop('email', None)
+        phone = validated_data.pop('phone', None)
+        items_data = validated_data.pop('items')
+        customer = None
+        from .models import Customer
+        # Customer matching/creation logic
+        if email and phone:
+            email_qs = Customer.objects.filter(email=email)
+            phone_qs = Customer.objects.filter(phone=phone)
+            if not email_qs.exists() and not phone_qs.exists():
+                customer = Customer.objects.create(email=email, phone=phone)
+            elif email_qs.exists() and not phone_qs.exists():
+                customer = email_qs.first()
+                customer.phone = phone
+                customer.save()
+            elif not email_qs.exists() and phone_qs.exists():
+                customer = phone_qs.first()
+                customer.email = email
+                customer.save()
+            elif email_qs.first().id == phone_qs.first().id:
+                customer = email_qs.first()
+            else:
+                raise serializers.ValidationError('Email and phone belong to different customers.')
+        elif email:
+            try:
+                customer = Customer.objects.get(email=email)
+            except Customer.DoesNotExist:
+                raise serializers.ValidationError('Customer with this email does not exist.')
+        elif phone:
+            try:
+                customer = Customer.objects.get(phone=phone)
+            except Customer.DoesNotExist:
+                raise serializers.ValidationError('Customer with this phone does not exist.')
+        order = Order.objects.create(customer=customer)
+        for item in items_data:
+            OrderItem.objects.create(order=order, pizza=item['pizza'], quantity=item['quantity'])
+        return order 

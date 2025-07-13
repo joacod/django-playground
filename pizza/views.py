@@ -16,45 +16,7 @@ class OrderCreateView(APIView):
     def post(self, request):
         serializer = OrderSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data.get('email')
-        phone = serializer.validated_data.get('phone')
-        items_data = serializer.validated_data.get('items')
-
-        customer = None
-        # Customer matching/creation logic
-        if email and phone:
-            email_qs = Customer.objects.filter(email=email)
-            phone_qs = Customer.objects.filter(phone=phone)
-            if not email_qs.exists() and not phone_qs.exists():
-                customer = Customer.objects.create(email=email, phone=phone)
-            elif email_qs.exists() and not phone_qs.exists():
-                customer = email_qs.first()
-                customer.phone = phone
-                customer.save()
-            elif not email_qs.exists() and phone_qs.exists():
-                customer = phone_qs.first()
-                customer.email = email
-                customer.save()
-            elif email_qs.first().id == phone_qs.first().id:
-                customer = email_qs.first()
-            else:
-                return Response({'detail': 'Email and phone belong to different customers.'}, status=400)
-        elif email:
-            try:
-                customer = Customer.objects.get(email=email)
-            except Customer.DoesNotExist:
-                return Response({'detail': 'Customer with this email does not exist.'}, status=400)
-        elif phone:
-            try:
-                customer = Customer.objects.get(phone=phone)
-            except Customer.DoesNotExist:
-                return Response({'detail': 'Customer with this phone does not exist.'}, status=400)
-
-        # Create order and items
-        order = Order.objects.create(customer=customer)
-        for item in items_data:
-            pizza = Pizza.objects.get(name__iexact=item['pizza'])
-            OrderItem.objects.create(order=order, pizza=pizza, quantity=item['quantity'])
+        order = serializer.save()
         return Response(OrderSerializer(order).data, status=201)
 
 # GET, POST /api/pizzas/
