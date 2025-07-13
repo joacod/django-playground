@@ -1,9 +1,10 @@
-from django.urls import path
-from django.http import HttpResponse
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import TodoViewSet
 
-def placeholder_view(request):
-    return HttpResponse('TodoDRF App Home')
+router = DefaultRouter()
+router.register(r'todos', TodoViewSet, basename='todo')
 
 urlpatterns = [
-    path('', placeholder_view, name='tododrf-home'),
+    path('', include(router.urls)),
 ] 
