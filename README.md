@@ -15,11 +15,17 @@
 
 Full-stack Django project with React frontend, containerized with Docker for seamless development.
 
-**Tech Stack:**
+### Tech Stack
 
 - 🐍 **Backend**: Django + Django REST Framework + PostgreSQL
 - ⚛️ **Frontend**: React + Vite + Tailwind CSS
 - 🐳 **Development**: Docker + Docker Compose
+
+### Development Features
+
+- ✅ **Django**: Python code changes restart the server automatically
+- ✅ **React**: Frontend changes update instantly in the browser
+- ✅ **Database**: PostgreSQL with persistent data across restarts
 
 ## 🚀 Quick Start (2 minutes)
 
@@ -46,19 +52,10 @@ That's it! Both applications are running with live reloading. 🎉
 
 ## 💻 Development Commands
 
-Daily development
-
-```bash
-docker-compose up          # Start all services
-docker-compose down        # Stop all services
-```
-
-Django operations
+Apply Django database migrations
 
 ```bash
 docker-compose exec web python manage.py migrate
-docker-compose exec web python manage.py createsuperuser
-docker-compose exec web python manage.py shell
 ```
 
 View logs
@@ -74,15 +71,7 @@ Fresh start (removes database data)
 docker-compose down -v && docker-compose up --build
 ```
 
-## 🖥️ Development Features
-
-### Live Reloading
-
-- ✅ **Django**: Python code changes restart the server automatically
-- ✅ **React**: Frontend changes update instantly in the browser
-- ✅ **Database**: PostgreSQL with persistent data across restarts
-
-### Admin Panel
+## 🛠️ Admin Panel
 
 Create a superuser for Django admin
 
@@ -112,10 +101,10 @@ This project supports **both** Django development approaches:
 
 ## 🧪 Testing
 
-Run Django tests
+Run Django REST framework tests for the pizza app API
 
 ```bash
-docker-compose exec web python manage.py test
+docker-compose exec web python manage.py test -v 2
 ```
 
 ## ☕️ Did you like the project?
