@@ -29,3 +29,12 @@ local_settings.py
 # Static and media files
 staticfiles/
 media/
+
+# Docker
+.dockerignore.swp
+docker-compose.override.yml
+
+# PostgreSQL data
+postgres_data/
+*.dump
+*.sqlfrontend/.pnpm-store/
