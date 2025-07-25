@@ -29,13 +29,15 @@ Docker & Docker Compose installed
 
 ### Get Started
 
-Start everything with one command
+1. Create environment file **".env"** from **".env.example"**
+
+2. Start everything with one command
 
 ```bash
 docker-compose up --build
 ```
 
-Access your applications
+3. Access your applications
 
 - 🐍 Django: http://localhost:8000
 - ⚛️ React Frontend: http://localhost:5173
