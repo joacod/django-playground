@@ -6,120 +6,119 @@
 
 [![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org)
 [![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com)
+[![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://react.dev/)
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
 </div>
 
 ## 👋 Introduction
 
-Project created using [Django](https://www.djangoproject.com/)
+Full-stack Django project with React frontend, containerized with Docker for seamless development.
 
-## 📋 Prerequisites
+**Tech Stack:**
 
-Install **Python**, follow the [official documentation](https://www.python.org/about/gettingstarted/)
+- 🐍 **Backend**: Django + Django REST Framework + PostgreSQL
+- ⚛️ **Frontend**: React + Vite + Tailwind CSS
+- 🐳 **Development**: Docker + Docker Compose
 
-## 📦 Setup Instructions
+## 🚀 Quick Start (2 minutes)
 
-Follow these steps to set up the project.
+### Prerequisites
 
-### 1. Create a Virtual Environment
+Docker & Docker Compose installed
 
-```bash
-python3 -m venv venv
-```
+### Get Started
 
-**Expected output**: Creates an isolated Python environment in `/venv`
-
-### 2. Activate the Virtual Environment
-
-Activates the virtual environment, updating your shell to use the isolated Python.
+Start everything with one command
 
 ```bash
-source venv/bin/activate
+docker-compose up --build
 ```
 
-**Expected output**: Prompt changes to `(venv) user@machine:~/django-playground$`
+Access your applications
 
-### 3. Install Dependencies
+- 🐍 Django: http://localhost:8000
+- ⚛️ React Frontend: http://localhost:5173
+
+That's it! Both applications are running with live reloading. 🎉
+
+## 💻 Development Commands
+
+Daily development
 
 ```bash
-pip install -r requirements.txt
+docker-compose up          # Start all services
+docker-compose down        # Stop all services
 ```
 
-**What it does**: Installs project dependencies listed in `requirements.txt`
-
-## 💻 Development Server
-
-Run the project locally.
+Django operations
 
 ```bash
-python manage.py runserver
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py createsuperuser
+docker-compose exec web python manage.py shell
 ```
 
-**What it does**: Starts a local server on `http://127.0.0.1:8000`
-
-### Create a Superuser
-
-To access the Django admin interface, you need a superuser account. Run:
+View logs
 
 ```bash
-python manage.py createsuperuser
+docker-compose logs web -f        # Django logs
+docker-compose logs frontend -f   # React logs
 ```
 
-Follow the prompts to set up your admin credentials.
-
-Once the server is running, access the admin panel at `http://127.0.0.1:8000/admin`
-
-## 🖥️ Frontend (Vite + React)
-
-A separate frontend app is available in the `frontend` folder, built with Vite and React. This app is intended for use with the Django REST Framework (DRF) APIs.
-
-### Running the Frontend
-
-1. Open a new terminal and navigate to the `frontend` directory:
+Fresh start (removes database data)
 
 ```bash
-cd frontend
+docker-compose down -v && docker-compose up --build
 ```
 
-2. Install dependencies (only needed once):
+## 🖥️ Development Features
+
+### Live Reloading
+
+- ✅ **Django**: Python code changes restart the server automatically
+- ✅ **React**: Frontend changes update instantly in the browser
+- ✅ **Database**: PostgreSQL with persistent data across restarts
+
+### Admin Panel
+
+Create a superuser for Django admin
 
 ```bash
-pnpm install
+docker-compose exec web python manage.py createsuperuser
 ```
 
-3. Start the development server:
-
-```bash
-pnpm dev
-```
-
-The frontend will be available at [http://localhost:5173](http://localhost:5173) by default.
+Access admin at: http://localhost:8000/admin
 
 ## 📝 Choosing Your Development Approach
 
-- **Django Development Server**: Running `python manage.py runserver` will serve your Django app, including any pages rendered with Django templates (e.g., server-side HTML views).
-- **Frontend (React) App**: Running the frontend dev server allows you to build and test a modern React SPA that consumes your Django REST API.
+This project supports **both** Django development approaches:
 
-You can use either approach, or both at the same time:
+### 🐍 **Django Templates Approach**
 
-- Use Django templates for traditional server-rendered pages.
-- Use the React frontend for a modern SPA experience with DRF APIs.
+- **What**: Traditional server-side rendered HTML pages
+- **Access**: http://localhost:8000
+- **Use case**: Classic Django web applications with server-side rendering
 
-Both can be run in parallel for full flexibility during development.
+### ⚛️ **API + React Frontend Approach**
+
+- **What**: Django REST Framework APIs + React SPA
+- **Access**:
+  - API: http://localhost:8000/api/
+  - Frontend: http://localhost:5173
+- **Use case**: Modern decoupled architecture with React consuming DRF APIs
 
 ## 🧪 Testing
 
-To run the backend tests (including API and business logic):
+Run Django tests
 
 ```bash
-python manage.py test
+docker-compose exec web python manage.py test
 ```
-
-This will discover and run all tests in your Django project.
 
 ## ☕️ Did you like the project?
 
-You can colaborate with me giving a star ⭐️ to the project or
+You can collaborate with me giving a star ⭐️ to the project or
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/joacod)
 
