@@ -40,7 +40,7 @@ Docker & Docker Compose installed
 2. Start everything with one command
 
 ```bash
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 3. Access your applications
@@ -80,6 +80,37 @@ docker-compose exec web python manage.py createsuperuser
 ```
 
 Access admin at: http://localhost:8000/admin
+
+## Database Management with pgAdmin
+
+Analyze and manage your PostgreSQL database using pgAdmin web interface.
+
+### Access pgAdmin
+
+1. **Open pgAdmin**: http://localhost:5050
+2. **Login credentials**:
+   - Email: `admin@admin.com`
+   - Password: `admin`
+
+### Connect to PostgreSQL Database
+
+1. Click **"Add New Server"** or **"Create > Server"**
+2. **General tab**:
+   - Name: `Django Playground` (or any name you prefer)
+3. **Connection tab**:
+   - Host name/address: `db`
+   - Port: `5432`
+   - Maintenance database: `django_playground`
+   - Username: `django_user`
+   - Password: `django_password`
+4. Click **"Save"**
+
+### What You Can Do
+
+- 📊 **Browse Tables**: View all Django models and data
+- 🔍 **Run SQL Queries**: Execute custom SQL commands
+- 📈 **Analyze Data**: Check table statistics and relationships
+- 🛠️ **Database Management**: Create backups, manage users, etc.
 
 ## 📝 Choosing Your Development Approach
 
