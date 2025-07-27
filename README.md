@@ -81,7 +81,7 @@ docker-compose exec web python manage.py createsuperuser
 
 Access admin at: http://localhost:8000/admin
 
-## Database Management with pgAdmin
+## 🗄️ Database Management with pgAdmin
 
 Analyze and manage your PostgreSQL database using pgAdmin web interface.
 
@@ -105,13 +105,6 @@ Analyze and manage your PostgreSQL database using pgAdmin web interface.
    - Password: `django_password`
 4. Click **"Save"**
 
-### What You Can Do
-
-- 📊 **Browse Tables**: View all Django models and data
-- 🔍 **Run SQL Queries**: Execute custom SQL commands
-- 📈 **Analyze Data**: Check table statistics and relationships
-- 🛠️ **Database Management**: Create backups, manage users, etc.
-
 ## 📝 Choosing Your Development Approach
 
 This project supports **both** Django development approaches:
@@ -132,7 +125,7 @@ This project supports **both** Django development approaches:
 
 ## 🧪 Testing
 
-Run Django REST framework tests for the pizza app API
+Run Django REST framework tests
 
 ```bash
 docker-compose exec web python manage.py test -v 2
