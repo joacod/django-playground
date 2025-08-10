@@ -1,22 +1,25 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Django Playground</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-  </head>
-  <body>
-    <h1>Django Playground</h1>
-    <section>
-      <h2>DRF Apps</h2>
-      <a href="http://localhost:5173/">DRF (Django REST framework) Apps</a>
-    </section>
-    <section>
-      <h2>Template Apps</h2>
-      <ul>
-        <li><a href="/todo/">Todo App</a></li>
-      </ul>
-    </section>
-  </body>
-</html>
+{% extends 'layouts/layout.html' %}
+
+{% block title %}Django Playground - Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to Django Playground</h1>
+
+<section>
+  <h2>DRF Apps</h2>
+  <p><a href="http://localhost:5173/">DRF (Django REST framework) Apps</a></p>
+  <p>
+    Frontend React application with Vite that consumes the Django REST APIs.
+  </p>
+</section>
+
+<section>
+  <h2>Template Apps</h2>
+  <ul>
+    <li>
+      <a href="/todo/">Todo App</a> - Full CRUD Django template-based
+      application
+    </li>
+  </ul>
+</section>
+{% endblock %}
