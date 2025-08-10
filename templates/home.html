@@ -1,22 +1,61 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Django Playground</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-  </head>
-  <body>
+{% extends 'layouts/layout.html' %}
+
+{% block title %}Django Playground - Home{% endblock %}
+
+{% block content %}
+<div class="home-content">
+  <div class="hero-section">
     <h1>Django Playground</h1>
-    <section>
-      <h2>DRF Apps</h2>
-      <a href="http://localhost:5173/">DRF (Django REST framework) Apps</a>
-    </section>
-    <section>
-      <h2>Template Apps</h2>
+    <p class="hero-description">
+      A comprehensive Django development environment showcasing modern web development practices with both traditional templates and API-driven frontends.
+    </p>
+  </div>
+  
+  <div class="content-grid">
+    <section class="info-card">
+      <h2>🚀 Getting Started</h2>
+      <p>Explore the different approaches to building web applications with Django:</p>
       <ul>
-        <li><a href="/todo/">Todo App</a></li>
+        <li><strong>Template-based Apps:</strong> Traditional Django with server-side rendering</li>
+        <li><strong>API + Frontend:</strong> Modern approach with Django REST Framework and React</li>
       </ul>
     </section>
-  </body>
-</html>
+
+    <section class="info-card">
+      <h2>🛠 Tech Stack</h2>
+      <div class="tech-grid">
+        <div class="tech-category">
+          <h3>Backend</h3>
+          <ul>
+            <li>Django 5.2</li>
+            <li>Django REST Framework</li>
+            <li>PostgreSQL/SQLite</li>
+          </ul>
+        </div>
+        <div class="tech-category">
+          <h3>Frontend</h3>
+          <ul>
+            <li>React 18</li>
+            <li>Vite</li>
+            <li>Modern CSS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-card features-card">
+      <h2>🎯 Features</h2>
+      <ul class="features-list">
+        <li>✅ <strong>Todo App:</strong> Full CRUD operations with Django templates</li>
+        <li>🍕 <strong>Pizza API:</strong> RESTful API with React frontend</li>
+        <li>🔧 <strong>Modern Layout:</strong> Responsive design with reusable components</li>
+        <li>🐳 <strong>Docker Ready:</strong> Containerized for easy deployment</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="navigation-hint">
+    <p>Use the navigation above to explore different sections of the playground.</p>
+  </div>
+</div>
+{% endblock %}

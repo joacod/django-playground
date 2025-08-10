@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Delete Todo</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'todo/styles.css' %}" />
-</head>
-<body>
-    <div class="container">
-        <h1>Delete Todo</h1>
-        <p>Are you sure you want to delete "{{ todo.title }}"?</p>
-        <form method="post" style="margin-bottom:0;">
-            {% csrf_token %}
-            <div class="action-row">
-                <button type="submit">Yes, delete</button>
-                <a class="cancel-link" href="{% url 'todo_list' %}">Cancel</a>
-            </div>
-        </form>
+{% extends 'layouts/layout.html' %}
+{% load static %}
+
+{% block title %}Delete Todo - Django Playground{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'todo/styles.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Delete Todo</h1>
+  <p>Are you sure you want to delete "{{ todo.title }}"?</p>
+  <form method="post" style="margin-bottom: 0">
+    {% csrf_token %}
+    <div class="action-row">
+      <button type="submit" class="btn btn-danger">Yes, delete</button>
+      <a class="btn btn-secondary" href="{% url 'todo_list' %}">Cancel</a>
     </div>
-</body>
-</html> 
+  </form>
+</div>
+{% endblock %}

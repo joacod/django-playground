@@ -1,28 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Todo List</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'todo/styles.css' %}" />
-</head>
-<body>
-    <div class="container">
-        <h1>Todo List</h1>
-        <a class="add-btn" href="{% url 'todo_create' %}">Add Todo</a>
-        <ul>
-            {% for todo in todos %}
-                <li>
-                    <span>{{ todo.title }} - {% if todo.completed %}Completed{% else %}Pending{% endif %}</span>
-                    <span>
-                        <a href="{% url 'todo_update' todo.pk %}">Edit</a>
-                        <a href="{% url 'todo_delete' todo.pk %}">Delete</a>
-                    </span>
-                </li>
-            {% empty %}
-                <li>No todos yet.</li>
-            {% endfor %}
-        </ul>
-    </div>
-</body>
-</html> 
+{% extends 'layouts/layout.html' %}
+{% load static %}
+
+{% block title %}Todo List - Django Playground{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'todo/styles.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Todo List</h1>
+  <a class="btn btn-primary btn-center" href="{% url 'todo_create' %}">Add Todo</a>
+  <ul class="todo-list">
+    {% for todo in todos %}
+    <li class="todo-item">
+      <span>{{ todo.title }} - {% if todo.completed %}Completed{% else %}Pending{% endif %}</span>
+      <div class="todo-actions">
+        <a href="{% url 'todo_update' todo.pk %}" class="todo-edit">Edit</a>
+        <a href="{% url 'todo_delete' todo.pk %}" class="todo-delete">Delete</a>
+      </div>
+    </li>
+    {% empty %}
+    <li class="todo-item">No todos yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
